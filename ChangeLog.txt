@@ -1,0 +1,40 @@
+Version 1.0.2 - 29 NOV 2024
+---------------------------
+1- Created a Mail Template Master for email content change.
+2- Added a Chat Messages Email Module: Partners receive an email notification whenever an internal team member sends a    message.
+3- Added a Shipped Email Notification: When an internal team marks a request as "shipped," the partner receives an email    containing the delivery date and remarks. 
+4- Tags have also been created for this feature.
+
+Version 1.0.2 - 03 DEC 2024
+---------------------------
+
+1- Change Request Type Select Images (Rotary & Herringbone).
+2- Resolved Screen Corner Edges Issue of All Screen.
+3- On Product List View on hover of Product view icon name change.
+4- Email Setting Issue Resolved.
+
+
+Version 1.0.3 - 09 DEC 2024
+---------------------------
+
+1- Added Poral Module (user can create portal and view and update).
+2- User can create folder and sub folder inside the portal.
+3- User can upload the field inside the folder and sub folder so on.
+4- user can download single or multiple files.
+5- user can delete single or multiple files.
+6- Permission of portal added (add(upload or create), Download, edit (file will download and folder will rename), delete).
+7- Email Template permission added (Add update and delete).
+8- login background image
+
+Version 1.0.4 - 16 DEC 2024
+---------------------------
+
+1- Change request 2- Fields remice and rename and moved according to provided excel file.
+2- Blue color change in whole prject.
+3- Portal link is moved from outside the administrator section.
+
+Version 1.0.5 - 18 DEC 2024
+---------------------------
+
+1- Upon completing a Quote Request, the status does not change from "Under Process" to     "Processed."
+2- The user was unable to mark the Quote Request as completed due to issues with attaching the final quote.

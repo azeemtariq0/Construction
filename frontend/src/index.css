@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ant-menu-light.ant-menu-root.ant-menu-inline {
+  border-inline-end: none !important;
+}
+
+.ant-layout-sider-zero-width-trigger {
+  @apply !top-2;
+}
+
+.ant-form-item-explain-error {
+  font-size: 11px;
+}
+
+.ant-menu-item-selected {
+  background: #616161 !important;
+}
+.ant-menu-submenu-open {
+  background: #464646 !important;
+}
+.ant-menu-submenu-title,
+.ant-menu-item {
+  color: white !important;
+}
+
+.ant-breadcrumb {
+  font-weight: 500 !important;
+}
+
+.ant-table-cell {
+  font-weight: 500;
+}
+
+.ant-menu-sub .ant-menu-item {
+  padding-left: 38px !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.ant-table-cell {
+  border-bottom: 0 !important;
+}
+
+.ant-menu-item-disabled,
+.ant-menu-submenu-disabled {
+  @apply !hidden;
+}
+
+.ant-menu-inline .ant-menu-item {
+  margin-inline: 0px !important;
+  margin-block: 0px !important;
+  width: 100% !important;
+}
+
+.ant-segmented .ant-segmented-group {
+  /* overflow-x: auto !important; */
+  flex-wrap: wrap;
+}
+
+@media (max-width: 576px) {
+  .ant-picker-panels {
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 400px;
+  }
+}
+
+.ql-toolbar.ql-snow {
+  border-radius: 6px 6px 0 0 !important;
+}
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+  border-radius: 0 0 6px 6px !important;
+}

@@ -1,0 +1,14 @@
+# Enable mod_rewrite
+RewriteEngine On
+
+RewriteBase /
+
+# Redirect Trailing Slashes to Non-Trailing Slash
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} /$
+RewriteRule ^(.*) /$1 [L,R=301]
+
+# Rewrite all other URLs to index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
