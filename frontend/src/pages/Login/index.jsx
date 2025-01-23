@@ -1,113 +1,82 @@
-import { Button, Form, Input } from "antd";
-import { LockKeyhole, UserRound } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import Logo from "../../assets/images/logo.png";
-import useError from "../../hooks/useError.jsx";
-import { loginHandler } from "../../store/features/authSlice.js";
-import LoginBG from "../../assets/images/login-bg.jpg";
+import { Button, Form, Input } from 'antd';
+import { FaRegUser } from 'react-icons/fa6';
+import { MdLockOutline } from 'react-icons/md';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import LOGO from '../../assets/logo.jpg';
+import useError from '../../hooks/useError';
+import { loginHandler } from '../../store/features/authSlice';
 
 const Login = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
   const handleError = useError();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { isLoggingIn } = useSelector((state) => state.auth);
 
-  const onLogin = async (values) => {
+  const onSubmit = async (values) => {
     try {
-      await dispatch(loginHandler(values)).unwrap();
-      navigate(location.state?.prevUrl || "/");
+      // await dispatch(loginHandler(values)).unwrap();
+      navigate('/');
     } catch (error) {
       handleError(error);
     }
   };
 
   return (
-    <div
-      className="flex min-h-screen items-center justify-center bg-[#808080] bg-cover bg-center sm:justify-end sm:pr-16"
-      style={{ backgroundImage: `url(${LoginBG})` }}
-    >
-      <div className="mx-4 w-full overflow-hidden rounded-lg bg-[#C0C0C0] shadow-lg sm:w-[450px] md:w-[450px]">
-        <div className="flex h-28 items-center justify-center rounded-lg bg-white">
-          <img src={Logo} alt="Pearson Logo" className="w-86 h-28" />
+    <div className="flex min-h-screen items-center justify-center bg-neutral-50">
+      <div className="mx-2 w-[450px] rounded-md border border-gray-300 bg-white px-4 py-6 sm:px-12">
+        <div className="mb-1 flex flex-col items-center">
+          <img src={LOGO} alt="" className="h-24 rounded-sm object-contain" />
+          <p className="text-green-1 mt-2 text-center text-base">Global Marine Safety - America</p>
+          <p className="text-sm text-gray-700">Login to your account.</p>
         </div>
 
-        <div className="px-8 py-6">
-          <div className="flex justify-center">
-            <h1 className="text-3xl font-bold">Login</h1>
-          </div>
+        <Form name="login" autoComplete="off" layout="vertical" onFinish={onSubmit}>
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter your email!'
+              },
+              {
+                type: 'email',
+                message: 'Please enter a valid email!'
+              }
+            ]}>
+            <Input
+              size="large"
+              autoFocus
+              prefix={<FaRegUser size={18} className="text-gray-500" />}
+            />
+          </Form.Item>
 
-          <p className="xs:text-[18px] mb-4 text-center text-[16px]">
-            To begin a new session sign in
-          </p>
-          <Form
-            name="login"
-            autoComplete="off"
-            layout="vertical"
-            onFinish={onLogin}
-          >
-            <Form.Item
-              className="w-full"
-              name="email"
-              rules={[
-                {
-                  required: true,
-                  message: "Please enter your email!",
-                },
-                {
-                  type: "email",
-                  message: "Please enter a valid email!",
-                },
-              ]}
-            >
-              <Input
-                placeholder="Email Address"
-                size="large"
-                autoFocus
-                prefix={<UserRound size={18} className="text-gray-500" />}
-                onFocus={() => window.scroll(0, 160)}
-              />
-            </Form.Item>
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter your password!'
+              },
+              {
+                whitespace: true
+              }
+            ]}>
+            <Input.Password
+              size="large"
+              prefix={<MdLockOutline size={18} className="text-gray-500" />}
+            />
+          </Form.Item>
 
-            <Form.Item
-              className="mb-0 w-full"
-              name="password"
-              rules={[
-                {
-                  required: true,
-                  whitespace: true,
-                  message: "Please enter your password!",
-                },
-              ]}
-            >
-              <Input.Password
-                placeholder="Password"
-                size="large"
-                prefix={<LockKeyhole size={18} className="text-gray-500" />}
-              />
-            </Form.Item>
-
-            <p className="mb-2 mt-1 text-black">
-              <Link to="/email-verification" className="hover:text-gray-1">
-                Forgot password?
-              </Link>
-            </p>
-
-            <div className="flex justify-end">
-              <Button
-                type="primary"
-                htmlType="submit"
-                block
-                className="!h-9 !w-[125px]"
-                size="large"
-                loading={isLoggingIn}
-              >
-                LOGIN
-              </Button>
-            </div>
-          </Form>
-        </div>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" block size="large" loading={isLoggingIn}>
+              Login
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     </div>
   );

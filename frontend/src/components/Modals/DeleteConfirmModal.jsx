@@ -1,18 +1,19 @@
-import { Button, Modal } from "antd";
-import { CircleAlert } from "lucide-react";
+/* eslint-disable react/prop-types */
+import { Button, Modal } from 'antd';
+import { TbAlertOctagonFilled } from 'react-icons/tb';
 
 const DeleteConfirmModal = ({
   open,
   onCancel,
-  title = "Are you sure you want to delete?",
-  description = "After deleting, you will not be able to recover it.",
+  title = 'Are you sure you want to delete?',
+  description = 'After deleting, you will not be able to recover it.',
   onDelete,
-  isDeleting = false,
+  isDeleting = false
 }) => {
   return (
     <Modal open={open} onCancel={onCancel} footer={null} closable={false}>
       <div className="flex flex-col items-center justify-center">
-        <CircleAlert size={80} className="mb-4 text-red-500" />
+        <TbAlertOctagonFilled size={80} className="mb-4 text-error" />
         <h4 className="text-center text-lg font-semibold">{title}</h4>
         {description && <p className="text-center">{description}</p>}
 

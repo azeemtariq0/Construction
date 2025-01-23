@@ -1,5 +1,5 @@
-import { Button, Result } from "antd";
-import { Link } from "react-router-dom";
+import { Button, Result } from 'antd';
+import { Link } from 'react-router-dom';
 
 const ErrorPage = () => {
   return (
@@ -8,9 +8,7 @@ const ErrorPage = () => {
       title="Oops! Something went wrong."
       extra={
         <Link to="..">
-          <Button type="primary" key="console">
-            Try to go back
-          </Button>
+          <Button type="primary">Try to go back</Button>
         </Link>
       }
     />

@@ -1,6 +1,5 @@
-import { Button, Result } from "antd";
-import React from "react";
-import { Link } from "react-router-dom";
+import { Button, Result } from 'antd';
+import { Link } from 'react-router-dom';
 
 const NotFound = () => (
   <Result

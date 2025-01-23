@@ -1,67 +1,47 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import api from "../../axiosInstance";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import api from '../../axiosInstance';
 
-export const loginHandler = createAsyncThunk(
-  "auth/login",
-  async (loginCredentials, { rejectWithValue }) => {
-    try {
-      const res = await api.post("/auth/login", loginCredentials);
-      return res.data.data;
-    } catch (err) {
-      throw rejectWithValue(err);
-    }
-  },
-);
+export const loginHandler = createAsyncThunk('auth/login', async (data, { rejectWithValue }) => {
+  try {
+    const res = await api.post('/auth/login', data);
+    return res.data.data;
+  } catch (err) {
+    throw rejectWithValue(err);
+  }
+});
 
-export const updatePasswordHandler = createAsyncThunk(
-  "auth/updatePassword",
-  async (data, { rejectWithValue }) => {
-    try {
-      const res = await api.post("/change-password", data);
-      return res.data.data;
-    } catch (err) {
-      throw rejectWithValue(err);
-    }
-  },
-);
-
-export const verifyEmail = createAsyncThunk(
-  "auth/verifyEmail",
-  async (data, { rejectWithValue }) => {
-    try {
-      const res = await api.post("/auth/verify-email", data);
-      return res.data.data;
-    } catch (err) {
-      throw rejectWithValue(err);
-    }
-  },
-);
+export const postSession = createAsyncThunk('session/post', async (data, { rejectWithValue }) => {
+  try {
+    const res = await api.post('/auth/session', data);
+    return res.data.data;
+  } catch (err) {
+    throw rejectWithValue(err);
+  }
+});
 
 export const resetPassword = createAsyncThunk(
-  "auth/resetPassword",
+  'auth/resetPassword',
   async (data, { rejectWithValue }) => {
     try {
-      const res = await api.post("/reset-password", data);
+      const res = await api.post('/reset-password', data);
       return res.data.data;
     } catch (err) {
       throw rejectWithValue(err);
     }
-  },
+  }
 );
 
-const user = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user"))
-  : null;
+const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
 const initialState = {
   isLoggingIn: false,
+  isSessionPosting: false,
+  sessionData: null,
   user,
-  isPasswordUpdating: false,
-  isEmailVerifying: false,
-  isPasswordResetting: false,
+  isPasswordResetting: false
 };
 
 export const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {},
   extraReducers: ({ addCase }) => {
@@ -70,40 +50,27 @@ export const authSlice = createSlice({
     });
     addCase(loginHandler.fulfilled, (state, action) => {
       state.isLoggingIn = false;
-      const { api_token, ...user } = action.payload;
-      localStorage.setItem("token", api_token);
-      localStorage.setItem("user", JSON.stringify(user));
-      state.user = user;
+      state.sessionData = {
+        company_and_branches: action.payload,
+        ...action.meta.arg
+      };
     });
     addCase(loginHandler.rejected, (state) => {
       state.isLoggingIn = false;
     });
 
-    addCase(updatePasswordHandler.pending, (state) => {
-      state.isPasswordUpdating = true;
+    addCase(postSession.pending, (state) => {
+      state.isSessionPosting = true;
     });
-    addCase(updatePasswordHandler.fulfilled, (state) => {
-      state.isPasswordUpdating = false;
-      const updatedUser = {
-        ...state.user,
-        is_change_password: 1,
-      };
-
-      state.user = updatedUser;
-      localStorage.setItem("user", JSON.stringify(updatedUser));
+    addCase(postSession.fulfilled, (state, action) => {
+      state.isSessionPosting = false;
+      const { api_token, ...user } = action.payload;
+      localStorage.setItem('token', api_token);
+      localStorage.setItem('user', JSON.stringify(user));
+      state.user = user;
     });
-    addCase(updatePasswordHandler.rejected, (state) => {
-      state.isPasswordUpdating = false;
-    });
-
-    addCase(verifyEmail.pending, (state) => {
-      state.isEmailVerifying = true;
-    });
-    addCase(verifyEmail.fulfilled, (state) => {
-      state.isEmailVerifying = false;
-    });
-    addCase(verifyEmail.rejected, (state) => {
-      state.isEmailVerifying = false;
+    addCase(postSession.rejected, (state) => {
+      state.isSessionPosting = false;
     });
 
     addCase(resetPassword.pending, (state) => {
@@ -115,7 +82,7 @@ export const authSlice = createSlice({
     addCase(resetPassword.rejected, (state) => {
       state.isPasswordResetting = false;
     });
-  },
+  }
 });
 
 export default authSlice.reducer;
