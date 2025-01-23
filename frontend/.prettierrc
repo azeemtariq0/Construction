@@ -1,1 +1,0 @@
-{ "filepath": "./src/**", "plugins": ["prettier-plugin-tailwindcss"] }
