@@ -3,7 +3,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Expense extends Model 
+class AddTransaction extends Model 
 {
     
 
@@ -11,7 +11,7 @@ class Expense extends Model
     public $incrementing = false; 
 
     // protected $connection = 'mysql';
-    protected $table = 'expense';
+    protected $table = 'transactions';
   
 
     /**
@@ -21,9 +21,10 @@ class Expense extends Model
      */
     protected $fillable = [
         'id',
-        'expense_code',
-        'expense_date',
-	    'expense_type_id',
+        'transaction_code',
+        'document_no',
+        'transaction_date',
+	    'amount',
         'is_deleted',
 	    'remarks',
         'created_by',
@@ -35,10 +36,5 @@ class Expense extends Model
      *
      * @var string[]
      */
-     
-     public function order_detail()
-    {
-        return $this->hasMany(ExpenseDetail::class,'expense_id')->orderBy('sort_order');
-    }
     
 }

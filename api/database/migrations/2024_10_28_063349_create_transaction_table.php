@@ -1,4 +1,4 @@
-<?php
+  <?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('expense', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->char('id', 40)->primary();
-            $table->char('expense_code', 40)->notNullable();
+            $table->char('transaction_code', 40)->notNullable();
             $table->char('document_no', 40)->notNullable();
-            $table->date('expense_date')->nullable();
-            $table->char('expense_type_id', 40)->nullable();
+            $table->date('transaction_date')->nullable();
             $table->text('remarks')->nullable();
+            $table->decimal('amount')->default(0);
             $table->tinyInteger('is_deleted')->default(0);
             $table->timestamp('created_at')->useCurrent();
             $table->char('created_by', 40)->notNullable();
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order');
+        Schema::dropIfExists('transactions');
     }
 };
