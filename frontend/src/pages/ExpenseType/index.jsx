@@ -45,8 +45,8 @@ const ExpenseType = () => {
     if (!name.trim()) return toast.error('Name field is required');
 
     try {
-      // await dispatch(createExpenseType({ name })).unwrap();
-      // await dispatch(getExpenseTypeList(params)).unwrap();
+      await dispatch(createExpenseType({ name })).unwrap();
+      await dispatch(getExpenseTypeList(params)).unwrap();
     } catch (error) {
       handleError(error);
     }
@@ -255,13 +255,7 @@ const ExpenseType = () => {
             current: params.page,
             showTotal: (total) => `Total ${total} Expense types`
           }}
-          dataSource={[
-            {
-              expenseType_id: '1',
-              name: 'Test',
-              editable: false
-            }
-          ]}
+          dataSource={list}
           showSorterTooltip={false}
           columns={columns}
           sticky={{

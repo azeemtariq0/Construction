@@ -9,6 +9,10 @@ const Login = lazy(() => import('./pages/Login'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const ExpenseType = lazy(() => import('./pages/ExpenseType'));
 
+const Expense = lazy(() => import('./pages/Expense'));
+const CreateExpense = lazy(() => import('./pages/Expense/CreateExpense'));
+const EditExpense = lazy(() => import('./pages/Expense/EditExpense'));
+
 function Routes() {
   const router = createBrowserRouter([
     {
@@ -31,7 +35,31 @@ function Routes() {
               <ExpenseType />
             </Suspense>
           )
-        }
+        },
+        {
+          path: '/expense',
+          element: (
+            <Suspense fallback={<PageLoader />}>
+              <Expense />
+            </Suspense>
+          )
+        },
+        {
+            path: '/expense/create',
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <CreateExpense />
+              </Suspense>
+            )
+          },
+          {
+            path: '/expense/edit/:id',
+            element: (
+              <Suspense fallback={<PageLoader />}>
+                <EditExpense />
+              </Suspense>
+            )
+          },
       ]
     },
     {
